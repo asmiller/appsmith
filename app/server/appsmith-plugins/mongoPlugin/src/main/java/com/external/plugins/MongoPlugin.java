@@ -189,7 +189,7 @@ public class MongoPlugin extends BasePlugin {
 
             // If that's not available, pick the authentication database.
             final DBAuth authentication = (DBAuth) datasourceConfiguration.getAuthentication();
-            if (StringUtils.isEmpty(databaseName) && authentication != null) {
+            if (StringUtils.isEmpty(databaseName) && authentication != null && authentication.getAuthType() != DBAuth.Type.NO_AUTHENTICATION) {
                 databaseName = authentication.getDatabaseName();
             }
 
@@ -241,6 +241,11 @@ public class MongoPlugin extends BasePlugin {
             }
 
             DBAuth authentication = (DBAuth) datasourceConfiguration.getAuthentication();
+
+            if (authentication.getAuthType() == DBAuth.Type.NO_AUTHENTICATION) {
+                authentication = null;
+            }
+
             if (authentication != null) {
                 builder
                         .append(urlEncode(authentication.getUsername()))
@@ -321,12 +326,16 @@ public class MongoPlugin extends BasePlugin {
 
                 if (authType != null && VALID_AUTH_TYPES.contains(authType)) {
 
-                    if (StringUtils.isEmpty(authentication.getUsername())) {
-                        invalids.add("Missing username for authentication. Needed because authType is " + authType + ".");
-                    }
+                    if (authType != DBAuth.Type.NO_AUTHENTICATION) {
 
-                    if (StringUtils.isEmpty(authentication.getPassword())) {
-                        invalids.add("Missing password for authentication. Needed because authType is " + authType + ".");
+                        if (StringUtils.isEmpty(authentication.getUsername())) {
+                            invalids.add("Missing username for authentication. Needed because authType is " + authType + ".");
+                        }
+
+                        if (StringUtils.isEmpty(authentication.getPassword())) {
+                            invalids.add("Missing password for authentication. Needed because authType is " + authType + ".");
+                        }
+
                     }
 
                 } else {

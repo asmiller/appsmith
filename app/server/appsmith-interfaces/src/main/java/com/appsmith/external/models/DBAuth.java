@@ -22,7 +22,7 @@ import java.util.Set;
 public class DBAuth extends AuthenticationDTO {
 
     public enum Type {
-        SCRAM_SHA_1, SCRAM_SHA_256, MONGODB_CR, USERNAME_PASSWORD
+        SCRAM_SHA_1, SCRAM_SHA_256, MONGODB_CR, USERNAME_PASSWORD, NO_AUTHENTICATION
     }
 
     Type authType;

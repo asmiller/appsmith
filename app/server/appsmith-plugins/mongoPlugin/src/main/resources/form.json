@@ -65,18 +65,15 @@
       "sectionName": "Authentication",
       "children": [
         {
-          "label": "Database Name",
-          "configProperty": "datasourceConfiguration.authentication.databaseName",
-          "controlType": "INPUT_TEXT",
-          "placeholderText": "Database name",
-          "initialValue": "admin"
-        },
-        {
           "label": "Authentication Type",
           "configProperty": "datasourceConfiguration.authentication.authType",
           "controlType": "DROP_DOWN",
           "initialValue": "SCRAM_SHA_1",
           "options": [
+            {
+              "label": "None",
+              "value": "NO_AUTHENTICATION"
+            },
             {
               "label": "SCRAM-SHA-1",
               "value": "SCRAM_SHA_1"
@@ -90,6 +87,13 @@
               "value": "MONGODB_CR"
             }
           ]
+        },
+        {
+          "label": "Database Name",
+          "configProperty": "datasourceConfiguration.authentication.databaseName",
+          "controlType": "INPUT_TEXT",
+          "placeholderText": "Database name",
+          "initialValue": "admin"
         },
         {
           "sectionName": null,
